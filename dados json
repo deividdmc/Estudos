@@ -1,0 +1,27 @@
+import json
+
+with open("dados.json", "r") as file:
+    dados = json.load(file)
+
+menor_faturamento = dados[0]["valor"]
+maior_faturamento = dados[0]["valor"]
+total_faturamento_mes = 0
+dias_com_faturamento_acima_media = 0
+
+for dia in dados:
+    if dia["valor"] < menor_faturamento:
+        menor_faturamento = dia["valor"]
+    if dia["valor"] > maior_faturamento:
+        maior_faturamento = dia["valor"]
+    if dia["valor"] > 0:
+        total_faturamento_mes += dia["valor"]
+
+media_faturamento_mes = total_faturamento_mes / len(dados) * 30
+
+for dia in dados:
+    if dia["valor"] > media_faturamento_mes and dia["valor"] > 0:
+        dias_com_faturamento_acima_media += 1
+
+print(f"Menor faturamento: {menor_faturamento:.2f}")
+print(f"Maior faturamento: {maior_faturamento:.2f}")
+print(f"Dias com faturamento acima da média mensal: {dias_com_faturamento_acima_media}")
